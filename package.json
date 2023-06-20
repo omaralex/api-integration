@@ -1,0 +1,39 @@
+{
+  "name": "api-integration",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "deploy:local": "serverless offline",
+    "deploy:dev": "serverless deploy --aws-profile imagina_dev --region us-east-2 --stage dev",
+    "deploy:prod": "serverless deploy --aws-profile imagina_prod --region us-east-2 --stage prod"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-source-map-support": "^1.0.0",
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "jest": "^21.2.1",
+    "serverless-lift": "^1.21.1",
+    "serverless-offline": "^9.0.0",
+    "serverless-offline-direct-lambda": "0.0.1",
+    "serverless-webpack": "^5.3.1",
+    "webpack": "^4.16.2",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "dependencies": {
+    "@hubspot/api-client": "^6.0.1-beta4",
+    "aws-sdk": "^2.820.0",
+    "axios": "^0.18.0",
+    "babel-runtime": "^6.26.0",
+    "csv-parser": "^3.0.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "pg-promise": "^10.11.1",
+    "serverless": "^3.27.0",
+    "serverless-http": "^2.0.2",
+    "source-map-support": "^0.4.18"
+  }
+}

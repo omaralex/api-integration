@@ -1,0 +1,47 @@
+service: api-integration
+frameworkVersion: '2 || 3'
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-offline-direct-lambda
+  - serverless-lift
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+  defaultStage: dev
+  defaultRegion: us-east-2
+  profiles:
+    dev: imagina_dev
+    prod: imagina_prod
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  lambdaHashingVersion: '20201221'
+  stage: ${opt:stage, self:custom.defaultStage}
+  region: ${opt:region, self:custom.defaultRegion}
+  profile: ${self:custom.profiles.${sls:stage}}
+  environment: ${file(env.yml):${self:provider.stage}}
+
+constructs:
+  hubspot-queue:
+    type: queue
+    fifo: true
+    delay: 30
+    maxRetries: 1
+    worker:
+      handler: src/handler.queue
+      timeout: 10
+    extensions:
+      dlq:
+        Properties:
+          MessageRetentionPeriod: 345600
+functions:
+  api:
+    handler: src/handler.api
+    maximumRetryAttempts: 0
+    environment:
+      QUEUE_URL: ${construct:hubspot-queue.queueUrl}
+    events:
+      - httpApi: '*'

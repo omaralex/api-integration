@@ -1,0 +1,16 @@
+{
+    "plugins": [
+      "babel-plugin-source-map-support",
+      "syntax-object-rest-spread"
+    ],
+    "presets": [
+      [
+        "babel-preset-env",
+        {
+          "targets": {
+            "node": true
+          }
+        }
+      ]
+    ]
+  }
